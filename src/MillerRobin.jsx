@@ -5,7 +5,7 @@ function Miller() {
   const [result, setResult] = useState("");
 
   const checkPrime = async () => {
-    const res = await fetch("https://cryptography-backend-05px.onrender.com/localhost:3000/api/miller", {
+    const res = await fetch("https://cryptography-backend-05px.onrender.com/api/miller", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ number })
