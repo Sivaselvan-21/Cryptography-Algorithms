@@ -29,7 +29,7 @@ COPY . .
 # -------------------------------
 # Compile Java files
 # -------------------------------
-RUN javac -cp java-logic/*.java
+RUN javac java-logic/*.java
 
 # -------------------------------
 # Build React frontend
