@@ -8,7 +8,7 @@ function GCD() {
   const calculateGCD = async (e) => {
     e.preventDefault(); // prevent page reload
 
-    const res = await fetch("https://cryptography-backend-05px.onrender.com/api/gcd", {
+    const res = await fetch("https://cryptography-algorithms-4.onrender.com/api/gcd", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ num1, num2 })

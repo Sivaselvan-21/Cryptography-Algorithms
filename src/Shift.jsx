@@ -20,7 +20,7 @@ function Shift() {
 
     try {
       const response = await axios.post(
-        "https://cryptography-backend-05px.onrender.com/api/encrypt",
+        "https://cryptography-algorithms-4.onrender.com/api/encrypt",
         { text, key }
       );
       setEncrypted(response.data.result);
