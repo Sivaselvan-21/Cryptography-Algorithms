@@ -15,6 +15,7 @@ app.use(express.json());
 function runJavaShiftCipher(mode, text, key, callback) {
     const safeText = text.replaceAll('"', '\\"');
     const cmd = `java -cp java-logic Cipher ${mode} ${key} "${safeText}"`;
+
     exec(cmd, (error, stdout, stderr) => {
         if (error) callback(stderr || error.message);
         else callback(stdout.trim());
@@ -33,48 +34,54 @@ app.post("/api/decrypt", (req, res) => {
 
 // -------------------- Hill Cipher --------------------
 app.post("/api/hill/encrypt", (req, res) => {
-    const { text } = req.body;
-    exec(`java -cp java-logic HillCipher encrypt "${text}"`, (err, stdout) => {
-        if (err) return res.json({ error: err.message });
-        res.json({ result: stdout.trim() });
-    });
+    exec(`java -cp java-logic HillCipher encrypt "${req.body.text}"`,
+        (err, stdout) => {
+            if (err) return res.json({ error: err.message });
+            res.json({ result: stdout.trim() });
+        }
+    );
 });
 
 app.post("/api/hill/decrypt", (req, res) => {
-    const { text } = req.body;
-    exec(`java -cp java-logic HillCipher decrypt "${text}"`, (err, stdout) => {
-        if (err) return res.json({ error: err.message });
-        res.json({ result: stdout.trim() });
-    });
+    exec(`java -cp java-logic HillCipher decrypt "${req.body.text}"`,
+        (err, stdout) => {
+            if (err) return res.json({ error: err.message });
+            res.json({ result: stdout.trim() });
+        }
+    );
 });
 
-// -------------------- Miller-Rabin --------------------
+// -------------------- Miller–Rabin --------------------
 app.post("/api/miller", (req, res) => {
-    const { number } = req.body;
-    exec(`java -cp java-logic MillerRobin ${number}`, (err, stdout) => {
-        if (err) return res.json({ error: err.message });
-        res.json({ result: stdout.trim() });
-    });
+    exec(`java -cp java-logic MillerRobin ${req.body.number}`,
+        (err, stdout) => {
+            if (err) return res.json({ error: err.message });
+            res.json({ result: stdout.trim() });
+        }
+    );
 });
 
 // -------------------- Euclidean GCD --------------------
 app.post("/api/gcd", (req, res) => {
-    const { num1, num2 } = req.body;
-    exec(`java -cp java-logic GCD ${num1} ${num2}`, (err, stdout) => {
-        if (err) return res.json({ error: err.message });
-        res.json({ result: stdout.trim() });
-    });
+    exec(`java -cp java-logic GCD ${req.body.num1} ${req.body.num2}`,
+        (err, stdout) => {
+            if (err) return res.json({ error: err.message });
+            res.json({ result: stdout.trim() });
+        }
+    );
 });
 
 // -------------------- Serve React Build --------------------
-app.use(express.static(path.join(__dirname, "dist")));
+const reactBuildPath = path.join(__dirname, "dist");
+app.use(express.static(reactBuildPath));
 
-// Fallback for React Router
-app.get(/.*/, (req, res) => {
+// React Router fallback
+app.get("*", (req, res) => {
     res.sendFile(path.join(reactBuildPath, "index.html"));
 });
 
 // -------------------- Start Server --------------------
-app.listen(3000, () => {
-    console.log("Server running at http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log("Server running on port", PORT);
 });
