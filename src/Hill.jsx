@@ -6,7 +6,7 @@ function Hill() {
   const [decrypted, setDecrypted] = useState("");
 
   const encrypt = async () => {
-    const res = await fetch("http://localhost:3000/api/hill/encrypt", {
+    const res = await fetch("https://cryptography-backend-05px.onrender.com/api/hill/encrypt", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text })
@@ -16,7 +16,7 @@ function Hill() {
   };
 
   const decrypt = async () => {
-    const res = await fetch("http://localhost:3000/api/hill/decrypt", {
+    const res = await fetch("https://cryptography-backend-05px.onrender.com/api/hill/decrypt", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text:encrypted })
