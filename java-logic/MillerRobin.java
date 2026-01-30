@@ -20,7 +20,7 @@ public class MillerRobin {
         if (n <= 1 || n == 4) return false;
         if (n <= 3) return true;
 
-        // n − 1 = d × 2^r
+       
         long d = n - 1;
         while (d % 2 == 0)
             d /= 2;
