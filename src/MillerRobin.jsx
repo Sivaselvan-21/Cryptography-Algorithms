@@ -28,7 +28,10 @@ function Miller() {
       <br /><br />
       <button onClick={checkPrime}>Check</button>
 
-      <p><strong>Result:</strong> {result}</p>
+      <pre style={{ whiteSpace: "pre-wrap", textAlign: "left" }}>
+  {result}
+</pre>
+
     </div>
   );
 }

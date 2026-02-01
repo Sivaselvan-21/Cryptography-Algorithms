@@ -76,9 +76,11 @@ const reactBuildPath = path.join(__dirname, "dist");
 app.use(express.static(reactBuildPath));
 
 // React Router fallback
-app.get("*", (req, res) => {
+app.use((req, res) => {
     res.sendFile(path.join(reactBuildPath, "index.html"));
 });
+
+
 
 // -------------------- Start Server --------------------
 const PORT = process.env.PORT || 3000;
