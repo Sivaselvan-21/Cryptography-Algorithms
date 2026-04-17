@@ -60,6 +60,14 @@ app.post("/api/miller", (req, res) => {
         }
     );
 });
+app.post("/api/fermat", (req, res) => {
+    exec(`java -cp java-logic FermatTest ${req.body.number}`,
+        (err, stdout) => {
+            if (err) return res.json({ error: err.message });
+            res.json({ result: stdout });
+        }
+    );
+});
 
 // -------------------- Euclidean GCD --------------------
 app.post("/api/gcd", (req, res) => {
@@ -67,6 +75,61 @@ app.post("/api/gcd", (req, res) => {
         (err, stdout) => {
             if (err) return res.json({ error: err.message });
             res.json({ result: stdout.trim() });
+        }
+    );
+});
+app.post("/api/sdes/encrypt", (req, res) => {
+    exec(`java -cp java-logic SDESFull encrypt ${req.body.key} ${req.body.text}`,
+        (err, stdout) => {
+            if (err) return res.json({ error: err.message });
+            res.json({ result: stdout });
+        }
+    );
+});
+
+app.post("/api/sdes/decrypt", (req, res) => {
+    exec(`java -cp java-logic SDESFull decrypt ${req.body.key} ${req.body.text}`,
+        (err, stdout) => {
+            if (err) return res.json({ error: err.message });
+            res.json({ result: stdout });
+        }
+    );
+});
+app.post("/api/aes-keygen", (req, res) => {
+    exec(`java -cp java-logic AESFull ${req.body.key} ${req.body.text}`,
+        (err, stdout) => {
+            if (err) return res.json({ error: err.message });
+            res.json({ result: stdout });
+        }
+    );
+});
+// RSA Encrypt
+app.post("/api/rsa/encrypt", (req, res) => {
+    exec(`java -cp java-logic RSAText encrypt ${req.body.text}`,
+        (err, stdout) => {
+            if (err) return res.json({ error: err.message });
+            res.json({ result: stdout });
+        }
+    );
+});
+
+// RSA Decrypt
+app.post("/api/rsa/decrypt", (req, res) => {
+    exec(`java -cp java-logic RSAText decrypt ${req.body.text}`,
+        (err, stdout) => {
+            if (err) return res.json({ error: err.message });
+            res.json({ result: stdout });
+        }
+    );
+});
+// Diffie-Hellman Key Exchange
+app.post("/api/dh", (req, res) => {
+    const { p, g, a, b } = req.body;
+
+    exec(`java -cp java-logic DiffieHellman ${p} ${g} ${a} ${b}`,
+        (err, stdout) => {
+            if (err) return res.json({ error: err.message });
+            res.json({ result: stdout });
         }
     );
 });

@@ -11,6 +11,7 @@ public class GCD {
     }
 
     static long gcd(long a, long b){
+        System.out.println("Calculating a "+a+" and b "+b+" -> ");
         if(b == 0) return a;
         return gcd(b, a % b);
     }

@@ -5,7 +5,7 @@ function Miller() {
   const [result, setResult] = useState("");
 
   const checkPrime = async () => {
-    const res = await fetch("http://localhost:3000/api/miller", {
+    const res = await fetch("http://localhost:3000/api/fermat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ number })
@@ -17,7 +17,7 @@ function Miller() {
 
   return (
     <div>
-      <h2>Miller–Rabin Primality Test</h2>
+      <h2>Fermat's Primality Test</h2>
 
       <input
         value={number}
