@@ -133,6 +133,28 @@ app.post("/api/dh", (req, res) => {
         }
     );
 });
+app.post("/api/sha256", (req, res) => {
+    const { message } = req.body;
+
+    exec(`java -cp java-logic SHA256Steps "${message}"`,
+        (err, stdout) => {
+            if (err) return res.json({ error: err.message });
+
+            res.json({ result: stdout }); 
+        }
+    );
+});
+app.post("/api/cmac", (req, res) => {
+    const { key, message } = req.body;
+
+    exec(`java -cp java-logic CMACSteps "${key}" "${message}"`,
+        (err, stdout) => {
+            if (err) return res.json({ error: err.message });
+
+            res.json({ result: stdout }); // full steps
+        }
+    );
+});
 
 // -------------------- Serve React Build --------------------
 const reactBuildPath = path.join(__dirname, "dist");

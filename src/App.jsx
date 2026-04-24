@@ -8,6 +8,8 @@ import SDES from "./SDES";
 import AESKeyGen from "./AESKeyGen";
 import RSA from "./RSA";
 import DiffieHellman from "./DiffieHellman";
+import SHA from "./SHA";
+import CMACUI from "./CMAC";
 
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
       <button onClick={()=> setCipher("aes")}>AES Key Expansion</button>
        <button onClick={()=> setCipher("RSA")}>RSA</button>
        <button onClick={()=> setCipher("diffie-hellman")}>Diffie-Hellman</button>
+       <button onClick={()=> setCipher("sha")}>SHA Hashing</button>
+        <button onClick={()=> setCipher("cmac")}>CMAC</button>
       <hr />
 
       {cipher === "shift" && <Shift />}
@@ -37,6 +41,8 @@ function App() {
       {cipher === "aes" && <AESKeyGen />}
       {cipher === "RSA" && <RSA/>}
       {cipher === "diffie-hellman" && <DiffieHellman/>}
+      {cipher === "sha" && <SHA/>}
+      {cipher === "cmac" && <CMACUI/>}
     </div>
   );
 }
